@@ -6,23 +6,26 @@ import java.util.Properties
 /**
   * Created by isaac on 17-8-17.
   */
-object Config {
+class Config {
 
-  val config: Properties = init
-
-  def init: Properties = {
+  private val p: Properties = {
     val properties = new Properties()
     val path = Thread.currentThread().getContextClassLoader.getResource("config.properties").getPath
     properties.load(new FileInputStream(path))
     properties
   }
 
-  def getConfig: Properties = {
-    config
-  }
+}
+
+object Config {
+  var config: Config = new Config()
 
   def getDatabaseFromUrl: String = {
-    val url = config.getProperty("jdbc.url")
+    val url = config.p.getProperty("jdbc.url")
     url.substring(url.lastIndexOf("/") + 1,url.indexOf("?"))
+  }
+
+  def getProperty(key: String): String = {
+    config.p.getProperty(key)
   }
 }

@@ -1,6 +1,6 @@
 package cn.isaac
 
-import cn.isaac.config.Config
+import cn.isaac.content.Content
 
 
 /**
@@ -8,7 +8,7 @@ import cn.isaac.config.Config
   */
 object main {
   def main(args: Array[String]): Unit = {
-    val config = Config.getConfig
-    print(config.getProperty("jdbc.driver"))
+    val content = Content.build()
+
   }
 }
