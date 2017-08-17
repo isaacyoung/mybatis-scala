@@ -24,7 +24,7 @@ object main {
 
     // copy
     if (content.isOver()) {
-
+      content.copyToProject()
     }
 
   }

@@ -1,11 +1,12 @@
 package cn.isaac.content
 
-import java.io.File
+import java.io.{BufferedWriter, File, FileWriter}
 
 import cn.isaac.config.Config
 import cn.isaac.jdbc.Connect
 
 import scala.collection.mutable.ArrayBuffer
+import scala.io.Source
 
 /**
   * Created by isaac on 17-8-17.
@@ -46,7 +47,7 @@ class Content {
   }
 
   def getServiceImplPath(): String = {
-    getProperty("out.target") + packageToPath(getProperty("pkg.serv"))  + "/impl"
+    getProperty("out.target") + packageToPath(getProperty("pkg.serv")) + "/impl"
   }
 
   def getXmlPath(): String = {
@@ -61,6 +62,60 @@ class Content {
     pkg.replace(".", "/")
   }
 
+  def copyToProject(): Unit = {
+    val fromPath = getProperty("out.target")
+    val toPath = getProperty("proj.target")
+
+    val toJavaPath = toPath + packageToPath("src.main.java.com")
+    val toResourcePath = toPath + packageToPath("src.main.resources.mapper")
+
+    new File(toJavaPath).mkdirs()
+    copyDir(fromPath + "com", toJavaPath)
+
+    new File(toResourcePath).mkdirs()
+    copyDir(fromPath + "mapper", toResourcePath)
+  }
+
+  def copyDir(source: String, dest: String): Unit = {
+
+    // get properties of source dir
+    val sourceFile = new File(source)
+    if (!sourceFile.exists()) {
+      return
+    }
+
+    // create dest dir
+    val destFile = new File(dest)
+    if (!destFile.exists()) {
+      destFile.mkdirs()
+    }
+
+    val directory = sourceFile.listFiles()
+
+    for (obj <- directory) {
+
+      val sourcefilepointer = source + "/" + obj.getName()
+      val destinationfilepointer = dest + "/" + obj.getName()
+
+      if (obj.isDirectory()) {
+        // create sub-directories - recursively
+        copyDir(sourcefilepointer, destinationfilepointer)
+      } else {
+        // perform copy
+        copyFile(sourcefilepointer, destinationfilepointer)
+      }
+
+    }
+
+  }
+
+  def copyFile(source: String, dest: String): Unit = {
+    val sourcefile = new File(source)
+
+    val out = new BufferedWriter(new FileWriter(dest))
+    Source.fromFile(sourcefile).getLines.foreach(s => out.write(s, 0, s.length));
+    out.close()
+  }
 
 }
 
