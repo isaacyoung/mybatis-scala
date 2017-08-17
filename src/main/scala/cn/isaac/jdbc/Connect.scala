@@ -26,7 +26,7 @@ class Connect {
       val statement = connection.createStatement()
       var sql = "SELECT TABLE_NAME,TABLE_COMMENT FROM information_schema.`TABLES` "
       sql += "WHERE TABLE_SCHEMA='" + Config.getDatabaseFromUrl + "' AND TABLE_TYPE='BASE TABLE'"
-      if (tableName != null && !tableName.eq("") && !tableName.eq("%")) {
+      if (tableName != null && tableName != "" && tableName != "%") {
         sql += "AND TABLE_NAME='" + tableName + "'"
       }
 
@@ -59,7 +59,7 @@ class Connect {
       val statement = connection.createStatement()
       var sql = "SELECT TABLE_NAME,COLUMN_NAME,COLUMN_KEY,DATA_TYPE,IFNULL(NUMERIC_SCALE,0) AS NUMERIC_SCALE,IFNULL(CHARACTER_MAXIMUM_LENGTH,0) AS CHARACTER_MAXIMUM_LENGTH,COLUMN_COMMENT FROM information_schema.`COLUMNS` "
       sql += "WHERE TABLE_SCHEMA='" + Config.getDatabaseFromUrl + "' "
-      if (tableName != null && !tableName.eq("") && !tableName.eq("%")) {
+      if (tableName != null && tableName != "" && tableName != "%") {
         sql += "AND TABLE_NAME='" + tableName + "'"
       }
 
@@ -69,7 +69,7 @@ class Connect {
         val column = new Column {}
         column.tableName = resultSet.getString("TABLE_NAME")
         column.name = resultSet.getString("COLUMN_NAME")
-        column.key = if (resultSet.getString("COLUMN_KEY") != null && resultSet.getString("COLUMN_KEY").eq("PRI")) true else false
+        column.key = if (resultSet.getString("COLUMN_KEY") != null && resultSet.getString("COLUMN_KEY") == "PRI") true else false
         column.dataType = resultSet.getString("DATA_TYPE")
         column.scale = resultSet.getInt("NUMERIC_SCALE")
         column.length = resultSet.getLong("CHARACTER_MAXIMUM_LENGTH")

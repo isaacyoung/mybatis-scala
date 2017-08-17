@@ -14,7 +14,7 @@ class Table {
   var columns: ArrayBuffer[Column] = _
 
   def setClassName(): Unit = {
-    if (name.eq("")) {
+    if (name == "") {
       return
     }
     className = Bean.getClassName(name)
@@ -47,6 +47,10 @@ class Table {
 
   def getServiceImplName(): String = {
     return className + "ServiceImp"
+  }
+
+  def getKeys(): ArrayBuffer[Column] = {
+    columns.filter(p => p.key)
   }
 
 }

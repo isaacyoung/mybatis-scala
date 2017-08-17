@@ -20,6 +20,7 @@ object main {
     Dao.code(content)
     Serv.code(content)
     Impl.code(content)
+    Xml.code(content)
 
     // copy
     if (content.isOver()) {

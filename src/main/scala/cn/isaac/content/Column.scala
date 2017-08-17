@@ -25,4 +25,16 @@ class Column {
     "set" + fieldName.substring(0,1).toUpperCase + fieldName.substring(1)
   }
 
+  def isKey(): Boolean = {
+    key
+  }
+
+  def isString(): Boolean = {
+    shortJavaType == "String"
+  }
+
+  def isDate(): Boolean = {
+    shortJavaType == "Date"
+  }
+
 }
