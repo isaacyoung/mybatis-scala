@@ -33,4 +33,9 @@ class Table {
     }
   }
 
+  def getImportType(): ArrayBuffer[String] = {
+    columns.filter(p => !p.javaType.startsWith("java.lang")).map(f => f.javaType).distinct
+  }
+
+
 }

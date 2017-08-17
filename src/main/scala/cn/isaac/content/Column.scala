@@ -17,5 +17,12 @@ class Column {
   var javaType = ""
   var shortJavaType = ""
 
+  def getFieldGetter(): String = {
+    "get" + fieldName.substring(0,1).toUpperCase + fieldName.substring(1)
+  }
+
+  def getFieldSetter(): String = {
+    "set" + fieldName.substring(0,1).toUpperCase + fieldName.substring(1)
+  }
 
 }

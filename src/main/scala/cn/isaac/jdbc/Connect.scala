@@ -1,8 +1,6 @@
 package cn.isaac.jdbc
 
-import java.sql.DriverManager
-import java.sql.Connection
-import java.util
+import java.sql.{Connection, DriverManager}
 
 import cn.isaac.config.Config
 import cn.isaac.content.{Column, Table}
