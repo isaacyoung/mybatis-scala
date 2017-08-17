@@ -1,6 +1,6 @@
 package cn.isaac
 
-import cn.isaac.code.Model
+import cn.isaac.code._
 import cn.isaac.content.Content
 
 
@@ -17,6 +17,9 @@ object main {
 
     // code
     Model.code(content)
+    Dao.code(content)
+    Serv.code(content)
+    Impl.code(content)
 
     // copy
     if (content.isOver()) {

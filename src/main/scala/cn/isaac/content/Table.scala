@@ -37,5 +37,16 @@ class Table {
     columns.filter(p => !p.javaType.startsWith("java.lang")).map(f => f.javaType).distinct
   }
 
+  def getDaoName(): String = {
+    return className + "Mapper"
+  }
+
+  def getServiceName(): String = {
+    return className + "Service"
+  }
+
+  def getServiceImplName(): String = {
+    return className + "ServiceImp"
+  }
 
 }
