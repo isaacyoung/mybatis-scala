@@ -49,7 +49,7 @@ object Xml {
       writer.write("""  </select>""" + "\n\n")
 
       // deleteById
-      writer.write("""  <delete id="deleteById" parameterType="java.lang.Integer"""" + "\n")
+      writer.write("""  <delete id="deleteById" parameterType="java.lang.Integer">""" + "\n")
       writer.write("""    delete from """ + t.name + "\n")
       for ((v, i) <- keys.zipWithIndex) {
         if (i == 0) {

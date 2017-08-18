@@ -113,7 +113,10 @@ class Content {
     val sourcefile = new File(source)
 
     val out = new BufferedWriter(new FileWriter(dest))
-    Source.fromFile(sourcefile).getLines.foreach(s => out.write(s, 0, s.length));
+    Source.fromFile(sourcefile).getLines.foreach(s => {
+      out.write(s, 0, s.length)
+      out.newLine()
+    })
     out.close()
   }
 

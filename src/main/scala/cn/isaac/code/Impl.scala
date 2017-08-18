@@ -25,6 +25,7 @@ object Impl {
       imports += "org.springframework.stereotype.Service"
       imports += content.getProperty("pkg.model") + "." + t.className
       imports += content.getProperty("pkg.dao") + "." + t.getDaoName()
+      imports += content.getProperty("pkg.serv") + "." + t.getServiceName()
       imports = imports.distinct.sorted
       for (v <- imports) {
         writer.write("import " + v + ";\n")
