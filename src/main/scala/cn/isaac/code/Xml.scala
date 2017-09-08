@@ -89,7 +89,7 @@ object Xml {
         """      <if test="sqlCondition != null and sqlCondition.size > 0">
         and
         <foreach collection="sqlCondition" index="index" item="condition" separator=" and ">
-          #{condition}
+          ${condition}
         </foreach>
       </if>"""
       writer.write(str + "\n")
